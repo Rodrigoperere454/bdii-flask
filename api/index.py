@@ -14,11 +14,12 @@ def db_connection():
         )
         return conn
     except Exception as e:
-        print(e)
+        print(f"Database connection error: {e}")
         return None
+
 @app.route('/')
 def home():
-    return 'Hello, World!- BD2-10/03/2025'
+    return 'Hello, World! - BD2 - 10/03/2025'
 
 @app.route('/about')
 def about():
@@ -27,10 +28,22 @@ def about():
 @app.route('/emp')
 def emp():
     conn = db_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM emp;")
-    emp = cur.fetchall()
-    cur.close()
-    conn.close()
-    return jsonify(emp)
+    if conn is None:
+        return jsonify({"error": "Database connection failed"}), 500
 
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM emp;")
+        rows = cur.fetchall()
+        col_names = [desc[0] for desc in cur.description]  # Get column names
+
+        employees = [dict(zip(col_names, row)) for row in rows]  # Convert to list of dictionaries
+
+        cur.close()
+        conn.close()
+        return jsonify(employees)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
