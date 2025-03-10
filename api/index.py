@@ -32,3 +32,7 @@ def emp():
 
     print(cur.fetchall())
 
+    cur.close()
+    conn.close()
+    return 'emp'
+
