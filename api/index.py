@@ -33,7 +33,7 @@ def emp():
 
     try:
         cur = conn.cursor()
-        cur.execute("SELECT * FROM emp;")
+        cur.execute("SELECT * FROM utilizadores;")
         rows = cur.fetchall()
         col_names = [desc[0] for desc in cur.description]  # Get column names
 
