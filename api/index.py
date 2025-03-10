@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import psycopg2
 
 app = Flask(__name__)
@@ -30,9 +30,9 @@ def emp():
     cur = conn.cursor()
     cur.execute("SELECT * FROM emp;")
 
-    print(cur.fetchall())
+    emp = cur.fetchall()
 
     cur.close()
     conn.close()
-    return 'emp'
+    return jsonify(emp)
 
