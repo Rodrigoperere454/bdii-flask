@@ -24,7 +24,7 @@ def home():
 def about():
     return 'About'
 
-@app.rout('/emp')
+@app.route('/emp')
 def emp():
     conn = db_connection()
     cur = conn.cursor()
