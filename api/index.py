@@ -29,9 +29,7 @@ def emp():
     conn = db_connection()
     cur = conn.cursor()
     cur.execute("SELECT * FROM emp;")
-
     emp = cur.fetchall()
-
     cur.close()
     conn.close()
     return jsonify(emp)
