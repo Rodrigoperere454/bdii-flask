@@ -10,7 +10,7 @@ def db_connection():
             password="postgres",
             host="localhost",
             port="5432",
-            database="bdii"
+            database="postgres"
         )
         return conn
     except Exception as e:
