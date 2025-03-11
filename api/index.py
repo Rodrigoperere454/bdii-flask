@@ -39,7 +39,7 @@ def token():
 @app.route('/decode/<string:token>')
 def decode(token):
     data = jwt.decode(token, os.environ.get("SECRET_KEY"), algorithms=['HS256'])
-    return jsonify(data)
+    return jsonify(data['user_id'])
 @app.route('/')
 def home():
     return 'Hello, World! - BD2 - 10/03/2025'
