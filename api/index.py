@@ -1,7 +1,10 @@
+from datetime import datetime, timedelta
 from flask import Flask, jsonify
 import psycopg2
 import os
+import jwt
 app = Flask(__name__)
+
 
 def db_connection():
     try:
@@ -27,6 +30,11 @@ def var():
         "db_host": os.environ.get("db_host"),
         "db_port": os.environ.get("db_port")
     })
+
+@app.route('/token')
+def token():
+    token = jwt.encode({'user_id': 1,'exp': datetime.utcnow() + timedelta(hours=1)},os.environ.get("SECRET_KEY"),algorithm='HS256')
+    return jsonify({"token": token})
 
 @app.route('/')
 def home():
