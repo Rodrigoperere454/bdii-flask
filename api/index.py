@@ -18,6 +18,16 @@ def db_connection():
         print(f"Database connection error: {e}")
         return None
 
+@app.route('/var')
+def var():
+    return jsonify({
+        "db_name": os.environ.get("db_name"),
+        "db_user": os.environ.get("db_user"),
+        "db_password": os.environ.get("db_password"),
+        "db_host": os.environ.get("db_host"),
+        "db_port": os.environ.get("db_port")
+    })
+
 @app.route('/')
 def home():
     return 'Hello, World! - BD2 - 10/03/2025'
