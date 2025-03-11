@@ -6,11 +6,12 @@ app = Flask(__name__)
 def db_connection():
     try:
         conn = psycopg2.connect(
-            user="postgres",
-            password="postgres",
-            host="localhost",
-            port="5432",
-            database="postgres"
+            dbname="db2022118930",
+            user="a2022118930",
+            password="a2022118930",
+            host="aid.estgoh.ipc.pt",
+            port="5432"
+
         )
         return conn
     except Exception as e:
