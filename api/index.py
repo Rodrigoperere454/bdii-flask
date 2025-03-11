@@ -9,7 +9,7 @@ def db_connection():
             dbname=os.environ.get("db_name"),
             user=os.environ.get("db_user"),
             password=os.environ.get("db_password"),
-            host=os.environ.get("db_host"),
+            host=os.environ.get("db_host")
         )
         return conn
     except Exception as e:
