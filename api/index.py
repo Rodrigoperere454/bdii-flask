@@ -9,7 +9,8 @@ def db_connection():
             dbname=os.environ.get("db_name"),
             user=os.environ.get("db_user"),
             password=os.environ.get("db_password"),
-            host=os.environ.get("db_host")
+            host=os.environ.get("db_host"),
+            port=os.environ.get("db_port")
 
         )
         return conn
@@ -33,7 +34,7 @@ def emp():
 
     try:
         cur = conn.cursor()
-        cur.execute("SELECT * FROM utilizadores;")
+        cur.execute("SELECT * FROM users;")
         rows = cur.fetchall()
         col_names = [desc[0] for desc in cur.description]
 
