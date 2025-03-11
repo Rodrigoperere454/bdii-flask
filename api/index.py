@@ -33,7 +33,7 @@ def var():
 
 @app.route('/token')
 def token():
-    token = jwt.JWT.encode({'user_id': 1,'exp': datetime.utcnow() + timedelta(hours=1)},os.environ.get("SECRET_KEY"),algorithm='HS256')
+    token = jwt.encode({'user_id': 1,'exp': datetime.utcnow() + timedelta(hours=1)},os.environ.get("SECRET_KEY"),algorithm='HS256')
     return jsonify({"token": token})
 
 @app.route('/')
