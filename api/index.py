@@ -1,17 +1,15 @@
 from flask import Flask, jsonify
 import psycopg2
-
+import os
 app = Flask(__name__)
 
 def db_connection():
     try:
         conn = psycopg2.connect(
-            dbname="db2022118930",
-            user="a2022118930",
-            password="a2022118930",
-            host="aid.estgoh.ipc.pt",
-            port="5432"
-
+            dbname=os.environ.get("db_name"),
+            user=os.environ.get("db_user"),
+            password=os.environ.get("db_password"),
+            host=os.environ.get("db_host"),
         )
         return conn
     except Exception as e:
