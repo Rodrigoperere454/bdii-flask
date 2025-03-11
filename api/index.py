@@ -36,6 +36,10 @@ def token():
     token = jwt.encode({'user_id': 1,'exp': datetime.utcnow() + timedelta(minutes=60)},os.environ.get("SECRET_KEY"), 'HS256')
     return token
 
+@app.route('/decode/<string:token>')
+def decode(token):
+    data = jwt.decode(token, os.environ.get("SECRET_KEY"), algorithms=['HS256'])
+    return data['user_id']
 @app.route('/')
 def home():
     return 'Hello, World! - BD2 - 10/03/2025'
