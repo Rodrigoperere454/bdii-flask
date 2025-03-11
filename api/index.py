@@ -36,9 +36,18 @@ def token():
     token = jwt.encode({'user_id': 1,'exp': datetime.utcnow() + timedelta(minutes=5)},os.environ.get("SECRET_KEY"), 'HS256')
     return token
 
+
 @app.route('/decode/<string:token>')
 def decode(token):
     data = jwt.decode(token, os.environ.get("SECRET_KEY"), algorithms=['HS256'])
+    try:
+        with db_connection() as conn:
+            cur = conn.cursor()
+            cur.execute("CALL insert_audit(%s, %s)", (data['user_id'], 'decode'))
+            conn.commit()
+            cur.close()
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
     return jsonify(data['user_id'])
 @app.route('/')
 def home():
@@ -67,6 +76,8 @@ def emp():
         return jsonify(employees)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
