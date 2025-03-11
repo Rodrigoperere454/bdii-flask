@@ -35,9 +35,9 @@ def emp():
         cur = conn.cursor()
         cur.execute("SELECT * FROM utilizadores;")
         rows = cur.fetchall()
-        col_names = [desc[0] for desc in cur.description]  # Get column names
+        col_names = [desc[0] for desc in cur.description]
 
-        employees = [dict(zip(col_names, row)) for row in rows]  # Convert to list of dictionaries
+        employees = [dict(zip(col_names, row)) for row in rows]
 
         cur.close()
         conn.close()
